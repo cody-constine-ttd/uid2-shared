@@ -2,14 +2,15 @@ name: Publish Snapshot
 on: workflow_dispatch
 
 jobs:
-  build:
+  check_version:
+    
+  publish:
     runs-on: ubuntu-latest
-
+      uses: ./.github/workflows/check_version.yaml
+      with:
+        needs_snapshot: true
     steps:
       - uses: actions/checkout@v2
-      - uses: ./.github/workflows/check_version.yaml
-        with:
-          needs_snapshot: true
       - uses: ./.github/workflows/download_gpg_key
         with:
           key: ${{ secrets.GPG_KEY }}
