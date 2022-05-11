@@ -1,8 +1,8 @@
-name: Release 
+name: Release Major/Minor
 on: workflow_dispatch
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
 
     steps:
