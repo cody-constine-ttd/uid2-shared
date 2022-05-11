@@ -23,7 +23,7 @@ jobs:
         if: ${{ inputs.needs_snapshot }}
         run: grep -q "\-SNAPSHOT" <<< "${{ steps.version.outputs.jar_version }}"
       - name: Check if Version has no Snapshot
-        if: ${{ inputs.needs_snapshot }} == false
+        if: ${{ ! inputs.needs_snapshot }}
         run: grep -vq "\-SNAPSHOT" <<< "${{ steps.version.outputs.jar_version }}"
       - name: Check if Version is released
         run: |
