@@ -15,6 +15,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - uses: actions/checkout@v2
       - name: Get Jar Version
         id: version
         run: echo "::set-output name=jar_version::$(mvn help:evaluate -Dexpression=project.version | grep -e '^[1-9][^\[]')"

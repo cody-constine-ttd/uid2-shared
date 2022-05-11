@@ -8,6 +8,7 @@ jobs:
       needs_snapshot: true
   publish:
     runs-on: ubuntu-latest
+    needs: [check_version]
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/workflows/download_gpg_key
