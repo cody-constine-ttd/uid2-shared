@@ -6,13 +6,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: ./.github/workflows/download_gpg_key
+        with:
+          key: ${{ secrets.GPG_KEY }}
       - name: Check Version before any work
         uses: ./.github/workflows/check_version
         with:
           needs_snapshot: true
-      - uses: ./.github/workflows/download_gpg_key
-        with:
-          key: ${{ secrets.GPG_KEY }}
       - name: Remove Snapshot
         run: mvn -B versions:set -DremoveSnapshot
       - name: Check Version snapshot removed
