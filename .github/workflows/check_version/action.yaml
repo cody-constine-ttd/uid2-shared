@@ -34,5 +34,5 @@ runs:
         if [[ $VERSION == *"-SNAPSHOT"* ]]; then
            export VERSION=$(echo $VERSION | awk '{ print substr( $0, 1, length($0)-9 ) }')
         fi
-        mvn dependency:get -Dartifact=com.uid2:uid2-shared:$VERSION
-        exit $(($?-1))
+        mvn dependency:get -Dartifact=com.uid2:uid2-shared:$VERSION || exit 0
+        exit 1
