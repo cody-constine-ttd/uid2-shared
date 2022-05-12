@@ -10,7 +10,7 @@ jobs:
         id: check_verion
         uses: ./.github/workflows/check_version
         with:
-          needs_snapshot:false
+          needs_snapshot: false
       - uses: ./.github/workflows/download_gpg_key
         with:
           key: ${{ secrets.GPG_KEY }}
