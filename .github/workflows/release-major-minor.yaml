@@ -30,3 +30,13 @@ jobs:
           tag: '${{ steps.check_version.outputs.version }}'
       - name: Publish 
         run: mvn -B -Drepo.id=ossrh -Drepo.login=uidadmin -Drepo.pwd="${{ secrets.SONATYPE_REPO_PASSWORD }}" -Dgpg.passphrase="${{ secrets.GPG_PASSPHRASE }}" clean deploy
+        #"
+      - name: Bumb Version
+        run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT versions:commit
+      - name: Commit Pom.xml
+        uses: EndBug/add-and-commit@v9
+        with:
+          add: 'pom.xml'
+          author_name: Release Workflow
+          author_email: unifiedid-admin+release@thetradedesk.com
+          message: 'Increment ${{ steps.check_version.outputs.version }}'
