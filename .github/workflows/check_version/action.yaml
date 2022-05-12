@@ -6,6 +6,7 @@ name: Check Version
 inputs:
   needs_snapshot:
     description: 'If set to true, this version needs a -SNAPSHOT'
+    required: true
     type: boolean
 outputs:
   version:
@@ -20,7 +21,7 @@ runs:
       shell: bash
       run: echo "::set-output name=jar_version::$(mvn help:evaluate -Dexpression=project.version | grep -e '^[1-9][^\[]')"
     - name: Check if Version has Snapshot
-      if: ${{ inputs.needs_snapshot }}
+      if: ${{ inputs.needs_snapshot == true }}
       shell: bash
       run: grep -q "\-SNAPSHOT" <<< "${{ steps.version.outputs.jar_version }}"
     - name: Check if Version has no Snapshot
