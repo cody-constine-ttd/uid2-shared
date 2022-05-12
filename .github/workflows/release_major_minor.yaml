@@ -17,7 +17,7 @@ jobs:
       - name: Remove Snapshot
         run: mvn -B versions:set -DremoveSnapshot
       - name: Commit Pom.xml
-      - uses: EndBug/add-and-commit@v9
+        uses: EndBug/add-and-commit@v9
         with:
           add: 'pom.xml'
           author_name: Release Workflow
