@@ -12,14 +12,14 @@ jobs:
       - name: Check Version before any work
         uses: ./.github/workflows/check_version
         with:
-          needs_snapshot: True
+          needs_snapshot: 'true'
       - name: Remove Snapshot
         run: mvn -B versions:set -DremoveSnapshot
       - name: Check Version snapshot removed
         id: check_verion
         uses: ./.github/workflows/check_version
         with:
-          needs_snapshot: False
+          needs_snapshot: 'false'
       - name: Commit Pom.xml
         uses: EndBug/add-and-commit@v9
         with:
