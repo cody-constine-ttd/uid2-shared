@@ -33,10 +33,15 @@ jobs:
         #"
       - name: Bumb Version
         run: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.nextMinorVersion}.0-SNAPSHOT versions:commit
+      - name: Check Version Bump Was Successful
+        id: check_version_after
+        uses: ./.github/workflows/check_version
+        with:
+          needs_snapshot: 'true'
       - name: Commit Pom.xml
         uses: EndBug/add-and-commit@v9
         with:
           add: 'pom.xml'
           author_name: Release Workflow
           author_email: unifiedid-admin+release@thetradedesk.com
-          message: 'Increment ${{ steps.check_version.outputs.version }}'
+          message: 'Increment ${{ steps.check_version.outputs.version }} to ${{ steps.check_version_after.outputs.version }}'
