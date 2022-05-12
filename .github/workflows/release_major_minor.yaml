@@ -16,7 +16,7 @@ jobs:
       - name: Remove Snapshot
         run: mvn -B versions:set -DremoveSnapshot
       - name: Check Version snapshot removed
-        id: check_verion
+        id: check_version
         uses: ./.github/workflows/check_version
         with:
           needs_snapshot: 'false'
