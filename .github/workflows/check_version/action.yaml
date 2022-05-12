@@ -17,14 +17,18 @@ runs:
   steps:
     - name: Get Jar Version
       id: version
+      shell: bash
       run: echo "::set-output name=jar_version::$(mvn help:evaluate -Dexpression=project.version | grep -e '^[1-9][^\[]')"
     - name: Check if Version has Snapshot
       if: ${{ inputs.needs_snapshot }}
+      shell: bash
       run: grep -q "\-SNAPSHOT" <<< "${{ steps.version.outputs.jar_version }}"
     - name: Check if Version has no Snapshot
       if: ${{ ! inputs.needs_snapshot }}
+      shell: bash
       run: grep -vq "\-SNAPSHOT" <<< "${{ steps.version.outputs.jar_version }}"
     - name: Check if Version is released
+      shell: bash
       run: |
         export VERSION=${{ steps.version.outputs.jar_version }}
         if [[ $VERSION == *"-SNAPSHOT"* ]]; then
