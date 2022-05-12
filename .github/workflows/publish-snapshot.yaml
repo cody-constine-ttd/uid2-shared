@@ -3,7 +3,7 @@ on: workflow_dispatch
 
 jobs:
   check_version: 
-    uses: ./.github/workflows/check_version.yaml
+    uses: ./.github/workflows/check_version/action.yaml
     with:
       needs_snapshot: true
   publish:
