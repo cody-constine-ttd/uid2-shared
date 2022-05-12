@@ -1,9 +1,16 @@
 name: Release Major/Minor
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      create_release_branch:
+        type: boolean
+        default: false
 
 jobs:
   release:
     runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.check_version.outputs.version }}
     steps:
       - uses: actions/checkout@v2
       - uses: ./.github/workflows/download_gpg_key
@@ -45,3 +52,10 @@ jobs:
           author_name: Release Workflow
           author_email: unifiedid-admin+release@thetradedesk.com
           message: 'Increment ${{ steps.check_version.outputs.version }} to ${{ steps.check_version_after.outputs.version }}'
+
+  create_branch:
+    if: ${{ github.event.inputs.create_release_branch }}
+    needs: [release]
+    uses: ./.github/workflows/create-release-branch.yaml
+    with:
+      version: ${{ needs.release.outputs.version }}
