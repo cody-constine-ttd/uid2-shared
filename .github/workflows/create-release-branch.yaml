@@ -13,7 +13,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Checkout Branch from tag
-        run: git checkout -b release-${{ github.event.inputs.version }}  ${{ github.event.inputs.version }}
+        run: |
+          git fetch --tags
+          git checkout -b release-${{ github.event.inputs.version }}  ${{ github.event.inputs.version }}
       - name: Bumb Version
         run: mvn versions:set -DnextSnapshot
       - name: Commit Pom.xml
